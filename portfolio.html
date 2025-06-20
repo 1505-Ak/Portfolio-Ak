@@ -3,31 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anulome Kishore | Portfolio</title>
+    <title>Anulome Kishore | ML & Software Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom CSS */
         :root {
-            /* darker primary colours */
-            --clr-primary-from: #2563eb; /* blue-600 */
-            --clr-primary-to: #4f46e5;   /* indigo-600 */
+            --primary: #6c63ff;
+            --secondary: #2d3748;
+            --dark: #1a202c;
+            --light: #f7fafc;
         }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
         .gradient-text {
-            background: linear-gradient(90deg, var(--clr-primary-from), var(--clr-primary-to));
+            background: linear-gradient(90deg, #6c63ff, #ff6b6b);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
         
-        .card-hover:hover {
+        .card {
+            background: rgba(45, 55, 72, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 25px rgba(108, 99, 255, 0.3);
         }
         
         .nav-link {
             position: relative;
         }
+        
         .nav-link::after {
             content: '';
             position: absolute;
@@ -35,491 +51,533 @@
             height: 2px;
             bottom: -2px;
             left: 0;
-            background: linear-gradient(90deg, var(--clr-primary-from), var(--clr-primary-to));
+            background-color: var(--primary);
             transition: width 0.3s ease;
         }
+        
         .nav-link:hover::after {
             width: 100%;
         }
-        .timeline-item::before {
+        
+        .hero-pattern {
+            background-image: radial-gradient(circle at 25% 25%, rgba(108, 99, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .skill-pill {
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-pill:hover {
+            background: rgba(108, 99, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .project-card {
+            perspective: 1000px;
+        }
+        
+        .project-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .project-card:hover .project-inner {
+            transform: rotateY(10deg);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 2px;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary) }
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .scroll-down::before {
             content: '';
             position: absolute;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            left: -8px;
-            top: 0;
-            background: linear-gradient(90deg, var(--clr-primary-from), var(--clr-primary-to));
+            width: 20px;
+            height: 20px;
+            border-bottom: 2px solid var(--primary);
+            border-right: 2px solid var(--primary);
+            transform: rotate(45deg);
+            animation: scrollAnimation 2s infinite;
         }
-        .typewriter {
-            border-right: 2px solid;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 3.5s steps(40, end) forwards;
+        
+        @keyframes scrollAnimation {
+            0% {
+                opacity: 0;
+                transform: rotate(45deg) translate(-10px, -10px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(10px, 10px);
+            }
         }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        /* Dark theme readability overrides */
-        body.bg-gray-900 .text-gray-600 { color: #d1d5db; }
-        body.bg-gray-900 .text-gray-700 { color: #e5e7eb; }
-        body.bg-gray-900 .text-gray-800 { color: #f3f4f6; }
-        /* Ensure black-ish text on white backgrounds */
-        .bg-white .text-gray-600 { color: #4b5563; }
-        .bg-white .text-gray-700 { color: #374151; }
-        .bg-white .text-gray-800 { color: #1f2937; }
-        .bg-white h3 { color: #1f2937; font-weight: 700; }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200 font-sans">
+<body class="min-h-screen">
     <!-- Navigation -->
-    <nav class="fixed w-full bg-gray-800 shadow-sm z-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+    <nav class="fixed w-full z-50 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <a href="#" class="text-xl font-bold gradient-text">Anulome Kishore</a>
+                    <div class="flex-shrink-0">
+                        <span class="text-xl font-bold gradient-text">AK</span>
+                    </div>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link text-gray-300 hover:text-indigo-400 transition">Home</a>
-                    <a href="#about" class="nav-link text-gray-300 hover:text-indigo-400 transition">About</a>
-                    <a href="#experience" class="nav-link text-gray-300 hover:text-indigo-400 transition">Experience</a>
-                    <a href="#projects" class="nav-link text-gray-300 hover:text-indigo-400 transition">Projects</a>
-                    <a href="#contact" class="nav-link text-gray-300 hover:text-indigo-400 transition">Contact</a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#about" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#skills" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#experience" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Experience</a>
+                        <a href="#projects" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="#contact" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
                 </div>
-                <div class="md:hidden flex items-center">
-                    <button id="menu-btn" class="text-gray-300 hover:text-indigo-400 focus:outline-none">
-                        <i class="fas fa-bars text-xl"></i>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
                     </button>
                 </div>
             </div>
         </div>
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 shadow-lg">
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-indigo-400 hover:bg-gray-700">Home</a>
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-indigo-400 hover:bg-gray-700">About</a>
-                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-indigo-400 hover:bg-gray-700">Experience</a>
-                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-indigo-400 hover:bg-gray-700">Projects</a>
-                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-indigo-400 hover:bg-gray-700">Contact</a>
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">About</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Skills</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Experience</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Projects</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center justify-between">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Hi, I'm <span class="gradient-text">Anulome Kishore</span></h1>
-                <div class="typewriter text-xl md:text-2xl mb-6">
-                    <span>Software Engineer @ JPMorgan</span>
-                </div>
-                <p class="text-gray-600 mb-8 text-lg">
-                    Final-year Computer Science student at the University of Manchester with a passion for turning ideas into reliable products and insights.
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#contact" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg font-medium hover:opacity-90 transition shadow-lg">
-                        Contact Me
-                    </a>
-                    <a href="#projects" class="px-6 py-3 border border-gray-400 rounded-lg font-medium hover:bg-gray-200 transition">
-                        View Projects
-                    </a>
-                </div>
-                <div class="mt-8 flex space-x-4">
-                    <a href="https://www.linkedin.com/in/anulome-kishore-792b00245/" target="_blank" class="text-gray-700 hover:text-blue-600 transition">
-                        <i class="fab fa-linkedin text-2xl"></i>
-                    </a>
-                    <a href="https://github.com/1505-Ak" target="_blank" class="text-gray-700 hover:text-gray-900 transition">
-                        <i class="fab fa-github text-2xl"></i>
-                    </a>
-                    <a href="mailto:anulomekishore15@gmail.com" class="text-gray-700 hover:text-red-500 transition">
-                        <i class="fas fa-envelope text-2xl"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div class="relative">
-                    <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-blue-200 to-indigo-200 flex items-center justify-center">
-                        <img src="00546C82-FE8D-4F8D-B336-0799A710D2FA.jpeg" alt="Hackathon" class="w-60 h-60 md:w-72 md:h-72 rounded-full object-cover border-4 border-white shadow-lg">
+    <section id="home" class="hero-pattern min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                        Hi, I'm <span class="gradient-text">Anulome Kishore</span>
+                    </h1>
+                    <div class="typewriter text-xl md:text-2xl mb-6">
+                        Software Engineer @ JPMorgan
                     </div>
-                    <div class="absolute -bottom-5 -right-5 bg-white p-3 rounded-lg shadow-lg">
-                        <div class="flex items-center">
-                            <div class="bg-blue-100 p-2 rounded-full mr-2">
-                                <i class="fas fa-code text-blue-600"></i>
-                            </div>
-                            <span class="font-medium">Software Engineer</span>
+                    <p class="text-gray-400 mb-8 max-w-lg">
+                        A passionate builder who loves creating innovative solutions at the intersection of machine learning, software engineering, and data systems.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#projects" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 rounded-md text-white font-medium hover:opacity-90 transition duration-300">
+                            View My Work
+                        </a>
+                        <a href="#contact" class="px-6 py-3 border border-purple-600 rounded-md text-purple-400 font-medium hover:bg-purple-900 hover:bg-opacity-30 transition duration-300">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-500 rounded-full opacity-20 blur-xl"></div>
+                        <div class="relative w-full h-full rounded-full overflow-hidden border-4 border-purple-500 floating">
+                            <!-- Replace with your image -->
+                            <img src="00546C82-FE8D-4F8D-B336-0799A710D2FA.jpeg" alt="Anulome Kishore" class="w-full h-full object-cover"/>
                         </div>
+                        <div class="absolute -bottom-5 -left-5 w-20 h-20 bg-purple-600 rounded-full opacity-20 blur-xl"></div>
+                        <div class="absolute -top-5 -right-5 w-24 h-24 bg-blue-500 rounded-full opacity-20 blur-xl"></div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="scroll-down"></div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-gray-800">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
-            <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto"></div>
-        </div>
-        <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
-                <div class="w-64 h-64 rounded-lg overflow-hidden shadow-lg">
-                    <img src="3BF7D58E-73DF-4594-8442-E6700E1B2978.jpeg" alt="Anulome traveling" class="w-full h-full object-cover">
-                </div>
+    <section id="about" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="gradient-text">About Me</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto"></div>
             </div>
-            <div class="md:w-2/3 md:pl-12">
-                <h3 class="text-2xl font-semibold mb-4">Who am I?</h3>
-                <p class="text-gray-600 mb-6">
-                    I'm Anulome, a builder by nature who enjoys tackling complex problems and shipping production-ready solutions. Whether it's crafting REST APIs, deploying ML models, or crunching gigabytes of data, I love the full journey from idea to impact.
-                </p>
-                <div class="grid grid-cols-2 gap-4 mb-8">
-                    <div>
-                        <p class="font-medium">Name: <span class="text-gray-600">Anulome Kishore</span></p>
-                        <p class="font-medium">Email: <span class="text-gray-600">anulomekishore15@gmail.com</span></p>
-                    </div>
-                    <div>
-                        <p class="font-medium">Education: <span class="text-gray-600">University of Manchester (2022-2025)</span></p>
-                        <p class="font-medium">Next Role: <span class="text-gray-600">Incoming SWE @ JPMorgan (2025)</span></p>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center">
+                    <div class="relative w-64 h-64">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-500 rounded-lg opacity-20 blur-xl"></div>
+                        <div class="relative w-full h-full rounded-lg overflow-hidden border-2 border-purple-500">
+                            <!-- Replace with your image -->
+                            <img src="3BF7D58E-73DF-4594-8442-E6700E1B2978.jpeg" alt="Anulome Kishore" class="w-full h-full object-cover"/>
+                        </div>
                     </div>
                 </div>
-                <!-- Skills -->
-                <div class="flex flex-wrap gap-3">
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">Java</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">Python</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">JavaScript</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">React</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">SQL</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">Machine Learning</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">Data Analytics</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">AWS</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">Flask</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">Docker</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">TensorFlow</span>
-                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full text-sm">PostgreSQL</span>
+                <div class="md:w-2/3 md:pl-12">
+                    <h3 class="text-2xl font-bold mb-6">Who am I?</h3>
+                    <p class="text-gray-400 mb-6">
+                        I'm Anulome Kishore, a Software Engineer at JPMorgan with a passion for building innovative solutions. I graduated from the University of Manchester with a BSc Hons in Computer Science, achieving a GPA of 3.76.
+                    </p>
+                    <p class="text-gray-400 mb-6">
+                        My expertise lies at the intersection of Machine Learning, Software Engineering, and Data Engineering. I thrive on solving complex problems and building systems that scale.
+                    </p>
+                    <p class="text-gray-400 mb-8">
+                        As a builder at heart, I'm constantly exploring new technologies and working on side projects. When I'm not coding, you can find me contributing to open-source, reading about emerging tech, or mentoring aspiring developers.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="card p-4 rounded-lg">
+                            <div class="text-purple-400 mb-2">
+                                <i class="fas fa-briefcase text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Experience</h4>
+                            <p class="text-sm text-gray-400">Software Engineer @ JPMorgan</p>
+                        </div>
+                        <div class="card p-4 rounded-lg">
+                            <div class="text-blue-400 mb-2">
+                                <i class="fas fa-graduation-cap text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Education</h4>
+                            <p class="text-sm text-gray-400">BSc Hons Computer Science @ University of Manchester</p>
+                        </div>
+                        <div class="card p-4 rounded-lg">
+                            <div class="text-green-400 mb-2">
+                                <i class="fas fa-code text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Interests</h4>
+                            <p class="text-sm text-gray-400">ML, Software Engineering, Data Systems</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-gray-900">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold mb-4">My <span class="gradient-text">Experience</span></h2>
-            <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto"></div>
-        </div>
-        <div class="relative">
-            <!-- Timeline -->
-            <div class="border-l-2 border-gray-300 pl-8 space-y-8">
+    <section id="experience" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4"><span class="gradient-text">Experience</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
                 <!-- JPMorgan -->
-                <div class="relative timeline-item">
-                    <div class="bg-white p-6 rounded-lg shadow-md card-hover transition duration-300">
-                        <div class="flex items-center mb-2">
-                            <div class="bg-blue-100 p-2 rounded-full mr-4">
-                                <i class="fas fa-briefcase text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-lg">Incoming Software Engineer</h3>
-                                <p class="text-gray-600">JPMorgan Chase & Co.</p>
-                            </div>
-                            <span class="ml-auto bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">2025 - Future</span>
+                <div class="card p-6 rounded-lg flex flex-col space-y-3">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-purple-400 text-3xl"><i class="fas fa-briefcase"></i></div>
+                        <div>
+                            <h3 class="text-xl font-bold">Software Engineer – Asset &amp; Wealth Management</h3>
+                            <p class="text-gray-400">JPMorgan Chase &amp; Co.</p>
+                            <span class="text-sm text-gray-500">2025&nbsp;–&nbsp;Present</span>
                         </div>
-                        <p class="text-gray-600">
-                            Will join the Asset &amp; Wealth Management Technology team building scalable platforms for investment analytics and client experience.
-                        </p>
                     </div>
+                    <ul class="list-disc list-inside text-gray-400 text-sm pl-6">
+                        <li>Designing micro-services handling multimillion-record market-data feeds.</li>
+                        <li>Implementing real-time analytics with Kafka Streams &amp; Redis.</li>
+                        <li>Leading CI/CD migration to GitHub Actions and Kubernetes.</li>
+                    </ul>
                 </div>
                 <!-- NatWest -->
-                <div class="relative timeline-item">
-                    <div class="bg-white p-6 rounded-lg shadow-md card-hover transition duration-300">
-                        <div class="flex items-center mb-2">
-                            <div class="bg-purple-100 p-2 rounded-full mr-4">
-                                <i class="fas fa-chart-line text-purple-600"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-lg">Data Analytics Intern</h3>
-                                <p class="text-gray-600">NatWest Group</p>
-                            </div>
-                            <span class="ml-auto bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Summer 2024</span>
+                <div class="card p-6 rounded-lg flex flex-col space-y-3">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-blue-400 text-3xl"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <h3 class="text-xl font-bold">Data &amp; Analytics Intern</h3>
+                            <p class="text-gray-400">NatWest Group</p>
+                            <span class="text-sm text-gray-500">Summer&nbsp;2024</span>
                         </div>
-                        <p class="text-gray-600">
-                            Built customer-segmentation models within the Retail &amp; Digital X team, automating data pipelines (Python, SQL) and reducing manual reporting by 40%.
-                        </p>
-                        <div class="mt-3 flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Python</span>
-                            <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">SQL</span>
-                            <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Tableau</span>
-                            <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Data Visualization</span>
-                        </div>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-400 text-sm pl-6">
+                        <li>Developed Python ETL pipelines automating weekly insight reports (↘40% manual effort).</li>
+                        <li>Built customer-segmentation model (XGBoost) improving campaign ROI by 12%.</li>
+                        <li>Presented findings to senior leadership; adopted bank-wide.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4"><span class="gradient-text">My Skills</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Core Competencies</h3>
+                    <ul class="list-disc list-inside text-gray-400 space-y-2">
+                        <li>Full-stack Web Development (React, Node.js, Flask)</li>
+                        <li>Machine Learning &amp; MLOps (TensorFlow, PyTorch, scikit-learn)</li>
+                        <li>Data Engineering (Spark, Kafka, Airflow, SQL/NoSQL)</li>
+                        <li>Cloud &amp; DevOps (AWS, Docker, Kubernetes, GitHub Actions)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Technologies</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">Python</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">Java</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">JavaScript</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">React</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">Node.js</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">TensorFlow</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">PyTorch</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">Spark</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">Kafka</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">AWS</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">Docker</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-sm">Kubernetes</span>
                     </div>
                 </div>
-                <!-- University -->
-                <div class="relative timeline-item">
-                    <div class="bg-white p-6 rounded-lg shadow-md card-hover transition duration-300">
-                        <div class="flex items-center mb-2">
-                            <div class="bg-green-100 p-2 rounded-full mr-4">
-                                <i class="fas fa-graduation-cap text-green-600"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-lg">BSc Computer Science</h3>
-                                <p class="text-gray-600">University of Manchester</p>
-                            </div>
-                            <span class="ml-auto bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">2022 - 2025</span>
-                        </div>
-                        <p class="text-gray-600">
-                            Modules: Algorithms &amp; Data Structures, Machine Learning, Databases, Cloud Computing, Distributed Systems, Software Engineering, Statistical Learning, User Experience. GPA: 3.71/4.0.
-                        </p>
-                        <div class="mt-3">
-                            <p class="font-medium">Achievements:</p>
-                            <ul class="list-disc list-inside text-gray-600">
-                                <li>Expected First Class Honours</li>
-                                <li>Course Representative, School of CS</li>
-                                <li>Winner – University Hackathon 2023</li>
-                                <li>Winner – BNY Mellon Challenge (GreatUniHack)</li>
-                                <li>Speaker – Google Developers Group Workshop</li>
-                            </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4"><span class="gradient-text">Education</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- University Card -->
+                <div class="card p-6 rounded-lg flex flex-col space-y-3">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-blue-400 text-3xl"><i class="fas fa-university"></i></div>
+                        <div>
+                            <h3 class="text-xl font-bold">BSc (Hons) Computer Science</h3>
+                            <p class="text-gray-400">University of Manchester</p>
+                            <span class="text-sm text-gray-500">2022&nbsp;–&nbsp;2025 · GPA&nbsp;3.76/4.0 </span>
                         </div>
                     </div>
+                    <ul class="list-disc list-inside text-gray-400 text-sm pl-6">
+                        <li>AI and Games enthusiast — developed Hex Agent, ranked 11th fastest and most efficient in the cohort.</li>
+                        <li>Winner – BNY Mellon Sponsorship Challenge (GreatUniHack 2023).</li>
+                        <li>Key Modules: Algorithms, Machine Learning, Computer Vision, Databases, IoT, Discrete Mathematics, Software Engineering.</li>
+                        <li>GPA: 3.76.</li>
+                        <li>Course Representative and Student Ambassador for 300+ students.</li>
+                        <li>Pass Leader and GDG workshop host.</li>
+
+                    </ul>
+                </div>
+                <!-- School Card -->
+                <div class="card p-6 rounded-lg flex flex-col space-y-3">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-purple-400 text-3xl"><i class="fas fa-school"></i></div>
+                        <div>
+                            <h3 class="text-xl font-bold">Higher Secondary Education</h3>
+                            <p class="text-gray-400">GEMS Millennium School, Sharjah (UAE)</p>
+                            <span class="text-sm text-gray-500">Graduated&nbsp;2022 · Ranked 4th Overall</span>
+                        </div>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-400 text-sm pl-6">
+                        <li>Academic Laureate &amp; Head Boy.</li>
+                        <li>Subject Topper – Mathematics &amp; Chemistry.</li>
+                        <li>Led STEM club initiatives, mentoring junior students.</li>
+                        <li>3D printing using Tinkercad in national competitions.</li>
+
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-gray-800">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold mb-4">Selected <span class="gradient-text">Projects</span></h2>
-            <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto"></div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Stock Portfolio Tracker -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover transition duration-300">
-                <div class="h-48 bg-gradient-to-r from-emerald-500 to-teal-600 flex items-center justify-center">
-                    <i class="fas fa-chart-line text-5xl text-white"></i>
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Stock Portfolio Tracker</h3>
-                    <p class="text-gray-600 mb-4">
-                        Full-stack platform leveraging React, Flask &amp; Postgres; streams live market data over WebSockets, crunches analytics in Redis task queues, and ships in Docker-Compose for one-click deployment.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">React</span>
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Flask</span>
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">PostgreSQL</span>
+    <section id="projects" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="gradient-text">My Projects</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto"></div>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+                    Here are some of my recent projects. I'm always working on something new, so check back often!
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-inner card h-full flex flex-col">
+                        <div class="relative overflow-hidden rounded-t-lg h-48">
+                            <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 opacity-70"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-chart-line text-6xl text-white"></i>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold mb-2">Stock Portfolio Tracker</h3>
+                            <p class="text-gray-400 mb-4">Full-stack web app streaming live market data, persisting to Postgres, and serving a React dashboard with real-time WebSocket updates.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-gray-800 text-blue-400 px-2 py-1 rounded">React</span>
+                                <span class="text-xs bg-gray-800 text-green-400 px-2 py-1 rounded">Flask</span>
+                                <span class="text-xs bg-gray-800 text-yellow-400 px-2 py-1 rounded">PostgreSQL</span>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6">
+                            <a href="https://github.com/1505-Ak/Stock-Portfolio-Tracker" target="_blank" class="text-teal-400 hover:text-teal-300 text-sm font-medium flex items-center">View Project <i class="fas fa-arrow-right ml-2"></i></a>
+                        </div>
                     </div>
-                    <div class="flex justify-between">
-                        <a href="https://github.com/1505-Ak/Stock-Portfolio-Tracker" target="_blank" class="text-blue-600 hover:underline">Code</a>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-inner card h-full flex flex-col">
+                        <div class="relative overflow-hidden rounded-t-lg h-48">
+                            <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 opacity-70"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-face-smile text-6xl text-white"></i>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold mb-2">feelnet – Sentiment Analysis</h3>
+                            <p class="text-gray-400 mb-4">Python toolkit that scrapes reviews from multiple platforms and classifies sentiment with transformer models via a Flask API and web UI.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-gray-800 text-purple-400 px-2 py-1 rounded">Python</span>
+                                <span class="text-xs bg-gray-800 text-green-400 px-2 py-1 rounded">Flask</span>
+                                <span class="text-xs bg-gray-800 text-blue-400 px-2 py-1 rounded">Transformers</span>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6">
+                            <a href="https://github.com/1505-Ak/feelnet" target="_blank" class="text-purple-400 hover:text-purple-300 text-sm font-medium flex items-center">View Project <i class="fas fa-arrow-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-inner card h-full flex flex-col">
+                        <div class="relative overflow-hidden rounded-t-lg h-48">
+                            <div class="absolute inset-0 bg-gradient-to-r from-fuchsia-500 to-purple-600 opacity-70"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-dumbbell text-6xl text-white"></i>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold mb-2">Cheat-meal Fitness Guide</h3>
+                            <p class="text-gray-400 mb-4">Mobile-first PWA that suggests macro-balanced "cheat" recipes, tracks goals and visualises nutrition with D3.js, backed by MongoDB.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-gray-800 text-blue-400 px-2 py-1 rounded">React</span>
+                                <span class="text-xs bg-gray-800 text-green-400 px-2 py-1 rounded">Node.js</span>
+                                <span class="text-xs bg-gray-800 text-yellow-400 px-2 py-1 rounded">MongoDB</span>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6">
+                            <a href="https://github.com/1505-Ak/Cheat-meal-Fitness-Guide" target="_blank" class="text-pink-400 hover:text-pink-300 text-sm font-medium flex items-center">View Project <i class="fas fa-arrow-right ml-2"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Web Scraper Framework -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover transition duration-300">
-                <div class="h-48 bg-gradient-to-r from-cyan-500 to-sky-600 flex items-center justify-center">
-                    <i class="fas fa-spider text-5xl text-white"></i>
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Universal Web Scraper</h3>
-                    <p class="text-gray-600 mb-4">
-                        Python framework that converts CSS/XPath selectors into typed datasets, supports asynchronous scraping via aiohttp, uses bloom-filter deduplication, and deploys to AWS Fargate through GitHub Actions.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Python</span>
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">AWS</span>
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">BeautifulSoup</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <a href="https://github.com/1505-Ak/Web-Scraper" target="_blank" class="text-blue-600 hover:underline">Code</a>
-                    </div>
-                </div>
-            </div>
-            <!-- FeelNet Sentiment Analysis -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover transition duration-300">
-                <div class="h-48 bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center">
-                    <i class="fas fa-face-smile text-5xl text-white"></i>
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">FeelNet Sentiment Analysis</h3>
-                    <p class="text-gray-600 mb-4">
-                        Comprehensive Python toolkit that automatically extracts and classifies public opinions from reviews and survey responses, complete with real-time web interface and REST API. Supports Amazon, IMDb and TripAdvisor scraping with a modular plugin architecture.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Python</span>
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Flask</span>
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Transformers</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <a href="https://github.com/1505-Ak/feelnet" target="_blank" class="text-blue-600 hover:underline">Code</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Cheat-Meal Fitness Guide -->
-            <div class="bg-white rounded-lg overflow-hidden shadow-md card-hover transition duration-300">
-                <div class="h-48 bg-gradient-to-r from-fuchsia-500 to-purple-600 flex items-center justify-center">
-                    <i class="fas fa-dumbbell text-5xl text-white"></i>
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Cheat-Meal Fitness Guide</h3>
-                    <p class="text-gray-600 mb-4">
-                        Progressive Web App crafted with React, Express, and MongoDB; integrates Nutritionix for macro computations, secures sessions via JWT, and visualises goal adherence using D3.js interactive charts.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">React</span>
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">Node.js</span>
-                        <span class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs">MongoDB</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <a href="https://github.com/1505-Ak/cheat-code-fitness-guide" target="_blank" class="text-blue-600 hover:underline">Code</a>
-                    </div>
-                </div>
+            <div class="text-center mt-12">
+                <a href="https://github.com/1505-Ak" target="_blank" class="inline-flex items-center px-6 py-3 border border-purple-600 rounded-md text-purple-400 font-medium hover:bg-purple-900 hover:bg-opacity-30 transition duration-300">
+                    <i class="fab fa-github mr-2"></i> View More on GitHub
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-gray-900">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h2>
-            <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-indigo-700 mx-auto"></div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-12">
-            <div class="md:w-1/2">
-                <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
-                <p class="text-gray-600 mb-8">
-                    I'm always excited to collaborate or chat about cool ideas—feel free to drop a message!
+    <section id="contact" class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="gradient-text">Get In Touch</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto"></div>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+                    Have a project in mind or want to discuss potential opportunities? Feel free to reach out!
                 </p>
-                <div class="space-y-6">
-                    <div class="flex items-start">
-                        <div class="bg-blue-100 p-3 rounded-full mr-4">
-                            <i class="fas fa-envelope text-blue-600"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-medium">Email</h4>
-                            <p class="text-gray-600">anulomekishore15@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="bg-green-100 p-3 rounded-full mr-4">
-                            <i class="fas fa-phone-alt text-green-600"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-medium">Phone</h4>
-                            <p class="text-gray-600">+44 7774 622 619</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="bg-purple-100 p-3 rounded-full mr-4">
-                            <i class="fas fa-map-marker-alt text-purple-600"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-medium">Location</h4>
-                            <p class="text-gray-600">Manchester, UK</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-8">
-                    <h4 class="font-medium mb-4">Follow Me</h4>
-                    <div class="flex space-x-4">
-                        <a href="https://www.linkedin.com/in/anulome-kishore-792b00245/" target="_blank" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://github.com/1505-Ak" target="_blank" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-800 hover:bg-gray-300 transition">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="mailto:anulomekishore15@gmail.com" class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 hover:bg-red-200 transition">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                </div>
             </div>
-            <!-- Simple contact form (non functional) -->
-            <div class="md:w-1/2">
-                <form class="space-y-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-                        <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white" placeholder="Your name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-400 mb-1">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white" placeholder="you@example.com">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white" placeholder="How can I help?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 rounded-md text-white font-medium hover:opacity-90 transition duration-300">Send Message</button>
+                    </form>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-4">
+                        <i class="fas fa-envelope text-purple-400"></i><span>anulomekishore15@gmail.com</span>
                     </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
-                        <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                    <div class="flex items-center space-x-4">
+                        <i class="fas fa-map-marker-alt text-purple-400"></i><span>Manchester, UK</span>
                     </div>
-                    <div>
-                        <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                        <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                    <div class="flex space-x-6 mt-4">
+                        <a href="https://www.linkedin.com/in/anulome-kishore-792b00245/" target="_blank" class="text-purple-400 hover:text-white"><i class="fab fa-linkedin text-2xl"></i></a>
+                        <a href="https://github.com/1505-Ak" target="_blank" class="text-purple-400 hover:text-white"><i class="fab fa-github text-2xl"></i></a>
                     </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                        <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"></textarea>
-                    </div>
-                    <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg font-medium hover:opacity-90 transition shadow-lg">
-                        Send Message
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <a href="#" class="text-xl font-bold gradient-text">Anulome Kishore</a>
-                    <p class="text-gray-400 mt-2">Software Engineer &amp; Data Enthusiast</p>
-                </div>
-                <div class="flex space-x-6">
-                    <a href="#home" class="text-gray-400 hover:text-white transition">Home</a>
-                    <a href="#about" class="text-gray-400 hover:text-white transition">About</a>
-                    <a href="#experience" class="text-gray-400 hover:text-white transition">Experience</a>
-                    <a href="#projects" class="text-gray-400 hover:text-white transition">Projects</a>
-                    <a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Anulome Kishore. All rights reserved.</p>
-                <div class="flex space-x-4">
-                    <a href="https://www.linkedin.com/in/anulome-kishore-792b00245/" target="_blank" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/1505-Ak" target="_blank" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="mailto:anulomekishore15@gmail.com" class="text-gray-400 hover:text-white transition">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
+    <footer class="bg-gray-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2025 Anulome Kishore. Built with ❤️ and Tailwind CSS.
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return; // skip top link
-                e.preventDefault();
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
-                    if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
-                }
-            });
-        });
-        // Navbar shadow on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 10) nav.classList.add('shadow-lg');
-            else nav.classList.remove('shadow-lg');
-        });
-        // Remove cursor after typewriter animation completes
-        const twText = document.querySelector('.typewriter');
-        if (twText) {
-            twText.addEventListener('animationend', () => {
-                twText.style.borderRight = 'none';
-            });
-        }
+    // Mobile menu toggle
+    const menuToggle=document.getElementById('menu-toggle');
+    const mobileMenu=document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click',()=>{mobileMenu.classList.toggle('hidden');});
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener('click',function(e){const targetId=this.getAttribute('href');if(targetId==='#')return;e.preventDefault();const el=document.querySelector(targetId);if(el){window.scrollTo({top:el.offsetTop-80,behavior:'smooth'});if(!mobileMenu.classList.contains('hidden'))mobileMenu.classList.add('hidden');}});});
+    // Remove cursor after typing
+    const tw=document.querySelector('.typewriter');if(tw){tw.addEventListener('animationend',()=>{tw.style.borderRight='none';});}
     </script>
 </body>
-</html> 
+</html>
